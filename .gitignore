@@ -1,6 +1,13 @@
 #python
 build/
+<<<<<<< HEAD
 disk/
 *.pyc
 *.spec
 *.pic
+=======
+dist/
+*.pyc
+*.pic
+*.spec
+>>>>>>> 31bd3b5cda4b9f3babd9ee618c41519327d00798
