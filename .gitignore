@@ -1,0 +1,6 @@
+#python
+build/
+disk/
+*.pyc
+*.spec
+*.pic
