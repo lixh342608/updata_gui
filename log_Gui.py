@@ -42,6 +42,9 @@ class log_gui:
                 except ValueError:
                     tkMessageBox.showinfo("提示：","文件最后一条数据更新码不是有效数据，请检查目标文件。")
                     up_var.set("")
+                except IOError:
+                    tkMessageBox.showinfo("提示：","找不到日志文件")
+                    up_var.set("")
             else:
                 up_var.set("")
         def change_on():

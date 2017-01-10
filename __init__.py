@@ -4,29 +4,49 @@ Created on 2015年12月25日
 
 @author: admin
 '''
- 
+# -*- coding: utf-8 -*-
+
+"""from Tkinter import *
+#from PIL import ImageTk,Image
+
+app = Tk()
+app.title("Welcome")
+#image2 =Image.open('./images/bg.gif')
+background_image = PhotoImage(file='./image/bg.gif')
+w = background_image.width()
+h = background_image.height()
+app.geometry('%dx%d+0+0' % (w,h))
+
+background_label = Label(app, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+a=0
+for x in ('button1','button2','button3'):
+    btn=Button(app,text=x)
+    btn.grid(row=a,column=1)
+    a+=1
+app.mainloop()
+
+
+""" 
 import smtplib  
 from email.mime.text import MIMEText  
-  
-sender = 'LXH@51cul.com'
-receiver=[]  
-receiver.append('dwb@51cul.com')
-receiver.append('LXH@51cul.com')
-subject = 'python email test'  
-smtpserver = 'smtp.exmail.qq.com'  
-username = 'LXH@51cul.com'  
-password = 'Abc123..'     
-msg = MIMEText('<html><h1>你好</h1></html>','html','utf-8')  
+#def send_mail(mail_text,username,userpw,developer=""):
+receiver=['LXH@51cul.com','lrh@51cul.com']
+#if developer: 
+    #receiver.append(developer)
+subject = '功能上线通知'  
+html_msg= '<html><h6>你好</h6></html>'# % mail_text   
+msg = MIMEText(html_msg,'html','utf-8')  
  
 msg['Subject'] = subject  
-msg['From'] = sender
+msg['From'] = 'auto_test'
 msg['To'] = "dwb@51cul.com"   
 smtp = smtplib.SMTP()  
-smtp.connect(smtpserver)  
-smtp.login(username, password)  
-smtp.sendmail(sender, receiver, msg.as_string())  
+smtp.connect('smtp.exmail.qq.com')  
+smtp.login('LXH@51cul.com', 'Abc123..')  
+smtp.sendmail('LXH@51cul.com', receiver, msg.as_string())  
 smtp.quit()
-print "send ok!"  
+    #print "send ok!"  
 
 
 
