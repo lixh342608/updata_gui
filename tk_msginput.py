@@ -102,12 +102,12 @@ class tk_Msginput:
     
         motecom_var=StringVar()
     
-        e1=Entry(self.root,textvariable=motecom_var,borderwidth=5).grid(row=1,column=1,padx=3,pady=3)
+        e1=Entry(self.root,textvariable=motecom_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=1,column=1,padx=3,pady=3)
     
         motecom_var.set(self.col["connext_set"][self.col["nocake"]][0])
         cake_motecom_var=StringVar()
     
-        cake_e1=Entry(self.root,textvariable=cake_motecom_var,borderwidth=5).grid(row=3,column=1,padx=3,pady=3)
+        cake_e1=Entry(self.root,textvariable=cake_motecom_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=3,column=1,padx=3,pady=3)
     
         cake_motecom_var.set(self.col["connext_set"][self.col["cake"]][0])
         
@@ -116,12 +116,12 @@ class tk_Msginput:
     
         pwd_var=StringVar()
     
-        e2=Entry(self.root,textvariable=pwd_var,show="*",borderwidth=5).grid(row=1,column=4,padx=3,pady=3)
+        e2=Entry(self.root,textvariable=pwd_var,show="*",borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=1,column=4,padx=3,pady=3)
     
         pwd_var.set(self.col["connext_set"][self.col["nocake"]][1])
         cake_pwd_var=StringVar()
     
-        cake_e2=Entry(self.root,textvariable=cake_pwd_var,show="*",borderwidth=5).grid(row=3,column=4,padx=3,pady=3)
+        cake_e2=Entry(self.root,textvariable=cake_pwd_var,show="*",borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=3,column=4,padx=3,pady=3)
     
         cake_pwd_var.set(self.col["connext_set"][self.col["cake"]][1])
 
@@ -131,7 +131,7 @@ class tk_Msginput:
     
         localpath_var=StringVar()
     
-        e3=Entry(self.root,textvariable=localpath_var,borderwidth=5).grid(row=7,column=1,padx=3,pady=3)
+        e3=Entry(self.root,textvariable=localpath_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=7,column=1,padx=3,pady=3)
     
         localpath_var.set(self.col["localpath"])
         
@@ -140,12 +140,12 @@ class tk_Msginput:
     
         motepath_var=StringVar()
     
-        e4=Entry(self.root,textvariable=motepath_var,borderwidth=5).grid(row=2,column=1,padx=3,pady=3)
+        e4=Entry(self.root,textvariable=motepath_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=2,column=1,padx=3,pady=3)
     
         motepath_var.set(self.col["connext_set"][self.col["nocake"]][2])
         cake_motepath_var=StringVar()
     
-        cake_e4=Entry(self.root,textvariable=cake_motepath_var,borderwidth=5).grid(row=4,column=1,padx=3,pady=3)
+        cake_e4=Entry(self.root,textvariable=cake_motepath_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=4,column=1,padx=3,pady=3)
     
         cake_motepath_var.set(self.col["connext_set"][self.col["cake"]][2])
         
@@ -154,7 +154,7 @@ class tk_Msginput:
     
         update_var=StringVar()
     
-        e5=Entry(self.root,textvariable=update_var,borderwidth=5).grid(row=7,column=4,padx=3,pady=3)
+        e5=Entry(self.root,textvariable=update_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=7,column=4,padx=3,pady=3)
     
         update_var.set("")
         
@@ -163,16 +163,16 @@ class tk_Msginput:
     
         moteuser_var=StringVar()
     
-        e6=Entry(self.root,textvariable=moteuser_var,borderwidth=5).grid(row=2,column=4,padx=3,pady=3)
+        e6=Entry(self.root,textvariable=moteuser_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=2,column=4,padx=3,pady=3)
     
         moteuser_var.set(self.col["connext_set"][self.col["nocake"]][3])
         cake_moteuser_var=StringVar()
     
-        cake_e6=Entry(self.root,textvariable=cake_moteuser_var,borderwidth=5).grid(row=4,column=4,padx=3,pady=3)
+        cake_e6=Entry(self.root,textvariable=cake_moteuser_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=4,column=4,padx=3,pady=3)
     
         cake_moteuser_var.set(self.col["connext_set"][self.col["cake"]][3])
         cal_var=StringVar()
-        e7=Entry(self.root,textvariable=cal_var,borderwidth=5).grid(row=8,column=1,padx=3,pady=3)
+        e7=Entry(self.root,textvariable=cal_var,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE").grid(row=8,column=1,padx=3,pady=3)
         try: 
             if self.col["cal"]:
                 cal_var.set(self.col["cal"])
@@ -191,7 +191,7 @@ class tk_Msginput:
             back_dir_var.set("")"""
         mailuser_var=StringVar()
     
-        e9=Entry(self.root,textvariable=mailuser_var,state=DISABLED,borderwidth=5)
+        e9=Entry(self.root,textvariable=mailuser_var,state=DISABLED,borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE")
         e9.grid(row=12,column=1,padx=3,pady=3)
         try:
             mailuser_var.set(self.col["mailuser"])
@@ -199,28 +199,28 @@ class tk_Msginput:
             mailuser_var.set("")
         mailpw_var=StringVar()
     
-        e10=Entry(self.root,textvariable=mailpw_var,state=DISABLED,show="*",borderwidth=5)
+        e10=Entry(self.root,textvariable=mailpw_var,state=DISABLED,show="*",borderwidth=5,highlightthickness=2,highlightcolor="red",highlightbackground="#87CEFA",bg="#B0C4DE")
         e10.grid(row=12,column=4,padx=3,pady=3)
         try:
             mailpw_var.set(self.col["mailpw"])
         except:
             mailpw_var.set("") 
         #back_dir_var.set(self.col["backdir"])
-        Label(self.root,text="主服务器信息").grid(row=1,column=0,padx=3,pady=3)
-        Label(self.root,text="cake服务器主机信息").grid(row=3,column=0,padx=3,pady=3)
-        Label(self.root,text="主服务器连接密码").grid(row=1,column=3,padx=3,pady=3)
-        Label(self.root,text="cake服务器连接密码").grid(row=3,column=3,padx=3,pady=3)
-        Label(self.root,text="源文件地址").grid(row=7,column=0,padx=3,pady=3)
-        Label(self.root,text="远程地址").grid(row=2,column=0,padx=3,pady=3)
-        Label(self.root,text="cake远程地址").grid(row=4,column=0,padx=3,pady=3)
-        Label(self.root,text="更新序号").grid(row=7,column=3,padx=3,pady=3)
-        Label(self.root,text="用户身份").grid(row=2,column=3,padx=3,pady=3)
-        Label(self.root,text="cake用户身份").grid(row=4,column=3,padx=3,pady=3)
-        Label(self.root,text="请确认更新信息后点击下方开始按钮进行更新操作").grid(row=8,column=3,columnspan=3,padx=3,pady=3)
-        Label(self.root,text="校准值").grid(row=8,column=0,padx=3,pady=3)
-        #Label(self.root,text="备份文件目录").grid(row=8,column=3)
-        Label(self.root,text="邮箱帐户").grid(row=12,column=0,padx=3,pady=3)
-        Label(self.root,text="邮箱密码").grid(row=12,column=3,padx=3,pady=3)
+        Label(self.root,text="主服务器信息",bg="#1E90FF").grid(row=1,column=0,padx=3,pady=3)
+        Label(self.root,text="cake服务器主机信息",bg="#1E90FF").grid(row=3,column=0,padx=3,pady=3)
+        Label(self.root,text="主服务器连接密码",bg="#1E90FF").grid(row=1,column=3,padx=3,pady=3)
+        Label(self.root,text="cake服务器连接密码",bg="#1E90FF").grid(row=3,column=3,padx=3,pady=3)
+        Label(self.root,text="源文件地址",bg="#1E90FF").grid(row=7,column=0,padx=3,pady=3)
+        Label(self.root,text="远程地址",bg="#1E90FF").grid(row=2,column=0,padx=3,pady=3)
+        Label(self.root,text="cake远程地址",bg="#1E90FF").grid(row=4,column=0,padx=3,pady=3)
+        Label(self.root,text="更新序号",bg="#1E90FF").grid(row=7,column=3,padx=3,pady=3)
+        Label(self.root,text="用户身份",bg="#1E90FF").grid(row=2,column=3,padx=3,pady=3)
+        Label(self.root,text="cake用户身份",bg="#1E90FF").grid(row=4,column=3,padx=3,pady=3)
+        Label(self.root,text="请确认更新信息后点击下方开始按钮进行更新操作",bg="#1E90FF").grid(row=8,column=3,columnspan=3,padx=3,pady=3)
+        Label(self.root,text="校准值",bg="#1E90FF").grid(row=8,column=0,padx=3,pady=3)
+        #Label(self.root,text="备份文件目录",bg="#1E90FF").grid(row=8,column=3)
+        Label(self.root,text="邮箱帐户",bg="#1E90FF").grid(row=12,column=0,padx=3,pady=3)
+        Label(self.root,text="邮箱密码",bg="#1E90FF").grid(row=12,column=3,padx=3,pady=3)
         for i in range(0,5):
             canv=Canvas(self.root,width=100,height=10)
             canv.grid(row=5,column=i)
@@ -229,17 +229,32 @@ class tk_Msginput:
             
             toproot=Toplevel(master)
             toproot.title(title)
+            
+            """try:
+                background_image = PhotoImage(file='image/bg.gif')
+                toproot.iconbitmap('image/edi.ico')
+            except:
+                tkMessageBox.showerror("提示：","找不到需要的图片素材，退出程序！")
+            w = background_image.width()
+            h = background_image.height()
             width_n=toproot.winfo_screenwidth()/2-350
             height_n=toproot.winfo_screenheight()/2-300
-            toproot.geometry('750x450+%s+%s' % (width_n,height_n))
+            toproot.geometry('%dx%d+%d+%d' % (w,h,width_n,height_n))
+            toproot.attributes("-alpha",1)
+            background_label = Label(toproot, image=background_image)
+            background_label.pack(x=0, y=0, relwidth=1, relheight=1)"""
+            
+            width_n=toproot.winfo_screenwidth()/2-350
+            height_n=toproot.winfo_screenheight()/2-300
+            toproot.geometry('790x488+%s+%s' % (width_n,height_n))
             toproot.attributes("-topmost", 1)
             sbar=Scrollbar(toproot)
             sbar.pack(side=RIGHT,fill=Y)
-            txt=Text(toproot,width=300,height=30,font = ("Arial, 10"),yscrollcommand=sbar.set)
+            txt=Text(toproot,width=300,height=30,font = ("Arial, 10"),yscrollcommand=sbar.set,background="#B0C4DE")
             txt.pack()
             txt.insert(INSERT,logs)
             sbar.config(command=txt.yview)
-            Button(toproot,text="确定",command=(lambda:top_quit()),width=15).pack(side=BOTTOM)
+            Button(toproot,text="确定",command=(lambda:top_quit()),width=15,bg="green").pack(side=BOTTOM)
             def top_quit():
                 b1["state"]=NORMAL
                 toproot.destroy()
