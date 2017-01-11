@@ -162,8 +162,8 @@ class updata_list:
                 run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],master_dir))
                 self.log.insert(INSERT,"正在上传文件%s\n" % localpath)
                 putfile(localpath,remotepath)
-                remote_backpath=back_file(file, key,self.col["backdir"])
-                putfile(localpath,remote_backpath)
+                #remote_backpath=back_file(file, key,self.col["backdir"])
+                #putfile(localpath,remote_backpath)
                 t=check_file(localpath,remotepath)
                 if t==1:
                     print "文件%s上传成功" % file

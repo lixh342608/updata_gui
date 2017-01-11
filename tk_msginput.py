@@ -72,7 +72,7 @@ class tk_Msginput:
         if self.col==0:
             tkMessageBox.showinfo("提示：","没有找到可用配置文件，请手动设置相关参数！")
             #self.col=dict.fromkeys(("motecom","pwd","localpath","motepath","moteuser","cal","update_num","backdir"),"")
-            self.col=dict.fromkeys(("localpath","cal","update_num","backdir","mailuser","mailpw"),"")
+            self.col=dict.fromkeys(("localpath","cal","update_num","mailuser","mailpw"),"")
             self.col["puttype"]=self.col["nocake"]=0
             self.col["cake"]=1
             self.col["connext_set"]=[["","","",""],["","","",""]]
@@ -167,7 +167,7 @@ class tk_Msginput:
                 cal_var.set(2)    
         except:
             cal_var.set(2)
-        back_dir_var=StringVar()
+        """back_dir_var=StringVar()
         e8=Entry(self.root,textvariable=back_dir_var).grid(row=8,column=4)
         try: 
             if self.col["backdir"]:
@@ -175,7 +175,7 @@ class tk_Msginput:
             else:
                 back_dir_var.set("")    
         except:
-            back_dir_var.set("")
+            back_dir_var.set("")"""
         mailuser_var=StringVar()
     
         e9=Entry(self.root,textvariable=mailuser_var,state=DISABLED)
@@ -203,9 +203,9 @@ class tk_Msginput:
         Label(self.root,text="更新序号").grid(row=7,column=3)
         Label(self.root,text="用户身份").grid(row=2,column=3)
         Label(self.root,text="cake用户身份").grid(row=4,column=3)
-        Label(self.root,text="请确认更新信息后点击右上角绿色按钮进行更新操作").grid(row=9,column=0,columnspan=3)
+        Label(self.root,text="请确认更新信息后点击下方开始按钮进行更新操作").grid(row=8,column=3,columnspan=3)
         Label(self.root,text="校准值").grid(row=8,column=0)
-        Label(self.root,text="备份文件目录").grid(row=8,column=3)
+        #Label(self.root,text="备份文件目录").grid(row=8,column=3)
         Label(self.root,text="邮箱帐户").grid(row=12,column=0)
         Label(self.root,text="邮箱密码").grid(row=12,column=3)
         for i in range(0,5):
@@ -247,7 +247,7 @@ class tk_Msginput:
                 self.col["connext_set"][self.col["nocake"]][3]=moteuser_var.get()
                 self.col["connext_set"][self.col["cake"]][3]=cake_moteuser_var.get()
                 self.col["cal"]=cal_var.get()
-                self.col["backdir"]=back_dir_var.get()
+                #self.col["backdir"]=back_dir_var.get()
                 for item in self.col.values():
                     if item !="":
                         pass
@@ -487,6 +487,7 @@ class tk_Msginput:
             b1_photo=PhotoImage(file="./image/start.gif")
             b4_photo=PhotoImage(file="./image/send.gif")
             b7_photo=PhotoImage(file="./image/option.gif")
+            b6_photo=PhotoImage(file="./image/stop.gif")
             b1=Button(self.root,image=b1_photo,command=click_on,overrelief=FLAT,state=DISABLED)
             b1.grid(row=10,column=4)
             b2=Button(self.root,image=b2_photo,command=select_on,overrelief=FLAT).grid(row=7,column=5)
@@ -494,7 +495,7 @@ class tk_Msginput:
             b4=Button(self.root,image=b4_photo,command=send_updatamail,state=DISABLED,overrelief=FLAT)
             b4.grid(row=10,column=1)
             #b5=Button(self.root,text="清空备份目录",command=del_all,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=12,column=1)
-            b6=Button(self.root,text="退出程序",command=(lambda x=self.root:x.destroy()),bd=3,overrelief=FLAT,fg="blue",width=16,height=2).grid(row=11,column=4)
+            b6=Button(self.root,image=b6_photo,command=(lambda x=self.root:x.destroy()),overrelief=FLAT).grid(row=11,column=4)
             check_var=IntVar()
             cbut1=Checkbutton(self.root,text="开启配置和邮件功能",variable=check_var,command=set_but).grid(row=11,column=2)
             b7=Button(self.root,image=b7_photo,command=change_seting,state=DISABLED,fg="blue")
