@@ -55,7 +55,6 @@ class tk_Msginput:
                 pass
             else: 
                 receiver.append(self.col["oper_link"][developer])
-                #print self.col["oper_link"][developer]
         subject = '功能上线通知'  
         html_msg= '<html><h2>本邮件由工具代发，无需回复</h2><br><h4>%s</h4></html>' % mail_text   
         msg = MIMEText(html_msg,'html','utf-8')  
@@ -487,7 +486,7 @@ class tk_Msginput:
             b2_photo=PhotoImage(file="./image/open.gif")
             b1_photo=PhotoImage(file="./image/start.gif")
             b4_photo=PhotoImage(file="./image/send.gif")
-        
+            b7_photo=PhotoImage(file="./image/option.gif")
             b1=Button(self.root,image=b1_photo,command=click_on,overrelief=FLAT,state=DISABLED)
             b1.grid(row=10,column=4)
             b2=Button(self.root,image=b2_photo,command=select_on,overrelief=FLAT).grid(row=7,column=5)
@@ -498,7 +497,7 @@ class tk_Msginput:
             b6=Button(self.root,text="退出程序",command=(lambda x=self.root:x.destroy()),bd=3,overrelief=FLAT,fg="blue",width=16,height=2).grid(row=11,column=4)
             check_var=IntVar()
             cbut1=Checkbutton(self.root,text="开启配置和邮件功能",variable=check_var,command=set_but).grid(row=11,column=2)
-            b7=Button(self.root,text="重置环境配置",command=change_seting,bd=3,width=18,height=2,state=DISABLED,fg="blue")
+            b7=Button(self.root,image=b7_photo,command=change_seting,state=DISABLED,fg="blue")
             b7.grid(row=11,column=1)
             b8_text_var=StringVar()
             b8=Button(self.root,textvariable=b8_text_var,command=set_mail,bg="yellow",fg="blue")
