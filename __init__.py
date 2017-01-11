@@ -4,15 +4,28 @@ Created on 2015年12月25日
 
 @author: admin
 '''
-# -*- coding: utf-8 -*-
 
 """from Tkinter import *
-#from PIL import ImageTk,Image
+from PIL import ImageTk
+
+root=Tk()
+
+canvas = Canvas(root,width = 600, height = 400, bg = 'blue')
+canvas.pack(expand = YES, fill = BOTH)
+
+image = ImageTk.PhotoImage(file = r"C:\Windows\Web\Wallpaper\Nature\img1.jpg")
+im=canvas.create_image(10, 10, image = image, anchor = NW)
+Button(canvas,text="开关").pack()
+root.mainloop()"""
+
+from Tkinter import *
+from PIL import ImageTk,Image
 
 app = Tk()
 app.title("Welcome")
-#image2 =Image.open('./images/bg.gif')
-background_image = PhotoImage(file='./image/bg.gif')
+#image2 =Image.open('image/bg.jpg')
+background_image = PhotoImage(file='image/bg.gif')
+#PhotoImage(file="./image/open.gif")
 w = background_image.width()
 h = background_image.height()
 app.geometry('%dx%d+0+0' % (w,h))
@@ -27,8 +40,8 @@ for x in ('button1','button2','button3'):
 app.mainloop()
 
 
-""" 
-import smtplib  
+
+"""import smtplib  
 from email.mime.text import MIMEText  
 #def send_mail(mail_text,username,userpw,developer=""):
 receiver=['LXH@51cul.com','lrh@51cul.com']
@@ -46,7 +59,7 @@ smtp.connect('smtp.exmail.qq.com')
 smtp.login('LXH@51cul.com', 'Abc123..')  
 smtp.sendmail('LXH@51cul.com', receiver, msg.as_string())  
 smtp.quit()
-    #print "send ok!"  
+    #print "send ok!"  """
 
 
 

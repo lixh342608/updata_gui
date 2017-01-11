@@ -11,10 +11,10 @@ from xltest import xl_red
 import pickle,shutil,re
 from updata_gui import *
 from fabric.api import *
-from test.test_tarfile import tarname
 import smtplib  
 from email.mime.text import MIMEText
 import sys
+#from PIL import ImageTk,Image
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
   
@@ -37,16 +37,29 @@ class tk_Msginput:
     def __init__(self):
         self.root=Tk()
         self.root.title("预设参数")
+        self.root.iconbitmap('image/edi.ico')
         
-        width_n=self.root.winfo_screenwidth()/2-350
-        height_n=self.root.winfo_screenheight()/2-300
         self.pack=0
         #self.textlist=[]
         self.textdict={}
         self.row_list=[]
-        self.root.geometry('750x450+%s+%s' % (width_n,height_n))
+        #self.root.geometry('750x450+%s+%s' % (width_n,height_n))
         self.col=loadcol()
-
+        #image2 =Image.open('image/bg.jpg')
+        #self.background_image = ImageTk.PhotoImage(image2)
+        try:
+            self.background_image = PhotoImage(file='image/bg.gif')
+            self.root.iconbitmap('image/edi.ico')
+        except:
+            tkMessageBox.showerror("提示：","找不到需要的图片素材，退出程序！")
+        w = self.background_image.width()
+        h = self.background_image.height()
+        width_n=self.root.winfo_screenwidth()/2-350
+        height_n=self.root.winfo_screenheight()/2-300
+        self.root.geometry('%dx%d+%d+%d' % (w,h,width_n,height_n))
+        self.root.attributes("-alpha",0.9)
+        background_label = Label(self.root, image=self.background_image)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
     
     def send_mail(self,mail_text,username,userpw,developers=[]):
         receiver=['xjh@51cul.com','zj@51cul.com','LXH@51cul.com','lrh@51cul.com','cjk@51cul.com']
@@ -85,16 +98,16 @@ class tk_Msginput:
     #初始化控件
     def tk_input(self):
         self.colback()
-        self.lab1=Label(self.root,text="请在下方输入远程主机信息（格式：root@192.168.1.5:22）",font = 'Helvetica -15 bold').grid(row=0,column=0,columnspan=3)
+        self.lab1=Label(self.root,text="请在下方输入远程主机信息（格式：root@192.168.1.5:22）",font = 'Helvetica -15 bold',borderwidth=5).grid(row=0,column=0,columnspan=3,padx=3,pady=3)
     
         motecom_var=StringVar()
     
-        e1=Entry(self.root,textvariable=motecom_var).grid(row=1,column=1)
+        e1=Entry(self.root,textvariable=motecom_var,borderwidth=5).grid(row=1,column=1,padx=3,pady=3)
     
         motecom_var.set(self.col["connext_set"][self.col["nocake"]][0])
         cake_motecom_var=StringVar()
     
-        cake_e1=Entry(self.root,textvariable=cake_motecom_var).grid(row=3,column=1)
+        cake_e1=Entry(self.root,textvariable=cake_motecom_var,borderwidth=5).grid(row=3,column=1,padx=3,pady=3)
     
         cake_motecom_var.set(self.col["connext_set"][self.col["cake"]][0])
         
@@ -103,22 +116,22 @@ class tk_Msginput:
     
         pwd_var=StringVar()
     
-        e2=Entry(self.root,textvariable=pwd_var,show="*").grid(row=1,column=4)
+        e2=Entry(self.root,textvariable=pwd_var,show="*",borderwidth=5).grid(row=1,column=4,padx=3,pady=3)
     
         pwd_var.set(self.col["connext_set"][self.col["nocake"]][1])
         cake_pwd_var=StringVar()
     
-        cake_e2=Entry(self.root,textvariable=cake_pwd_var,show="*").grid(row=3,column=4)
+        cake_e2=Entry(self.root,textvariable=cake_pwd_var,show="*",borderwidth=5).grid(row=3,column=4,padx=3,pady=3)
     
         cake_pwd_var.set(self.col["connext_set"][self.col["cake"]][1])
 
         
         #设置新域名
-        lab3=Label(self.root,text="公共设置",font = 'Helvetica -15 bold').grid(row=6,column=0)
+        lab3=Label(self.root,text="公共设置",font = 'Helvetica -15 bold').grid(row=6,column=0,padx=3,pady=3)
     
         localpath_var=StringVar()
     
-        e3=Entry(self.root,textvariable=localpath_var).grid(row=7,column=1)
+        e3=Entry(self.root,textvariable=localpath_var,borderwidth=5).grid(row=7,column=1,padx=3,pady=3)
     
         localpath_var.set(self.col["localpath"])
         
@@ -127,12 +140,12 @@ class tk_Msginput:
     
         motepath_var=StringVar()
     
-        e4=Entry(self.root,textvariable=motepath_var).grid(row=2,column=1)
+        e4=Entry(self.root,textvariable=motepath_var,borderwidth=5).grid(row=2,column=1,padx=3,pady=3)
     
         motepath_var.set(self.col["connext_set"][self.col["nocake"]][2])
         cake_motepath_var=StringVar()
     
-        cake_e4=Entry(self.root,textvariable=cake_motepath_var).grid(row=4,column=1)
+        cake_e4=Entry(self.root,textvariable=cake_motepath_var,borderwidth=5).grid(row=4,column=1,padx=3,pady=3)
     
         cake_motepath_var.set(self.col["connext_set"][self.col["cake"]][2])
         
@@ -141,7 +154,7 @@ class tk_Msginput:
     
         update_var=StringVar()
     
-        e5=Entry(self.root,textvariable=update_var).grid(row=7,column=4)
+        e5=Entry(self.root,textvariable=update_var,borderwidth=5).grid(row=7,column=4,padx=3,pady=3)
     
         update_var.set("")
         
@@ -150,16 +163,16 @@ class tk_Msginput:
     
         moteuser_var=StringVar()
     
-        e6=Entry(self.root,textvariable=moteuser_var).grid(row=2,column=4)
+        e6=Entry(self.root,textvariable=moteuser_var,borderwidth=5).grid(row=2,column=4,padx=3,pady=3)
     
         moteuser_var.set(self.col["connext_set"][self.col["nocake"]][3])
         cake_moteuser_var=StringVar()
     
-        cake_e6=Entry(self.root,textvariable=cake_moteuser_var).grid(row=4,column=4)
+        cake_e6=Entry(self.root,textvariable=cake_moteuser_var,borderwidth=5).grid(row=4,column=4,padx=3,pady=3)
     
         cake_moteuser_var.set(self.col["connext_set"][self.col["cake"]][3])
         cal_var=StringVar()
-        e7=Entry(self.root,textvariable=cal_var).grid(row=8,column=1)
+        e7=Entry(self.root,textvariable=cal_var,borderwidth=5).grid(row=8,column=1,padx=3,pady=3)
         try: 
             if self.col["cal"]:
                 cal_var.set(self.col["cal"])
@@ -178,36 +191,36 @@ class tk_Msginput:
             back_dir_var.set("")"""
         mailuser_var=StringVar()
     
-        e9=Entry(self.root,textvariable=mailuser_var,state=DISABLED)
-        e9.grid(row=12,column=1)
+        e9=Entry(self.root,textvariable=mailuser_var,state=DISABLED,borderwidth=5)
+        e9.grid(row=12,column=1,padx=3,pady=3)
         try:
             mailuser_var.set(self.col["mailuser"])
         except:
             mailuser_var.set("")
         mailpw_var=StringVar()
     
-        e10=Entry(self.root,textvariable=mailpw_var,state=DISABLED,show="*")
-        e10.grid(row=12,column=4)
+        e10=Entry(self.root,textvariable=mailpw_var,state=DISABLED,show="*",borderwidth=5)
+        e10.grid(row=12,column=4,padx=3,pady=3)
         try:
             mailpw_var.set(self.col["mailpw"])
         except:
             mailpw_var.set("") 
         #back_dir_var.set(self.col["backdir"])
-        Label(self.root,text="主服务器信息").grid(row=1,column=0)
-        Label(self.root,text="cake服务器主机信息").grid(row=3,column=0)
-        Label(self.root,text="主服务器连接密码").grid(row=1,column=3)
-        Label(self.root,text="cake服务器连接密码").grid(row=3,column=3)
-        Label(self.root,text="源文件地址").grid(row=7,column=0)
-        Label(self.root,text="远程地址").grid(row=2,column=0)
-        Label(self.root,text="cake远程地址").grid(row=4,column=0)
-        Label(self.root,text="更新序号").grid(row=7,column=3)
-        Label(self.root,text="用户身份").grid(row=2,column=3)
-        Label(self.root,text="cake用户身份").grid(row=4,column=3)
-        Label(self.root,text="请确认更新信息后点击下方开始按钮进行更新操作").grid(row=8,column=3,columnspan=3)
-        Label(self.root,text="校准值").grid(row=8,column=0)
+        Label(self.root,text="主服务器信息").grid(row=1,column=0,padx=3,pady=3)
+        Label(self.root,text="cake服务器主机信息").grid(row=3,column=0,padx=3,pady=3)
+        Label(self.root,text="主服务器连接密码").grid(row=1,column=3,padx=3,pady=3)
+        Label(self.root,text="cake服务器连接密码").grid(row=3,column=3,padx=3,pady=3)
+        Label(self.root,text="源文件地址").grid(row=7,column=0,padx=3,pady=3)
+        Label(self.root,text="远程地址").grid(row=2,column=0,padx=3,pady=3)
+        Label(self.root,text="cake远程地址").grid(row=4,column=0,padx=3,pady=3)
+        Label(self.root,text="更新序号").grid(row=7,column=3,padx=3,pady=3)
+        Label(self.root,text="用户身份").grid(row=2,column=3,padx=3,pady=3)
+        Label(self.root,text="cake用户身份").grid(row=4,column=3,padx=3,pady=3)
+        Label(self.root,text="请确认更新信息后点击下方开始按钮进行更新操作").grid(row=8,column=3,columnspan=3,padx=3,pady=3)
+        Label(self.root,text="校准值").grid(row=8,column=0,padx=3,pady=3)
         #Label(self.root,text="备份文件目录").grid(row=8,column=3)
-        Label(self.root,text="邮箱帐户").grid(row=12,column=0)
-        Label(self.root,text="邮箱密码").grid(row=12,column=3)
+        Label(self.root,text="邮箱帐户").grid(row=12,column=0,padx=3,pady=3)
+        Label(self.root,text="邮箱密码").grid(row=12,column=3,padx=3,pady=3)
         for i in range(0,5):
             canv=Canvas(self.root,width=100,height=10)
             canv.grid(row=5,column=i)
@@ -489,21 +502,21 @@ class tk_Msginput:
             b7_photo=PhotoImage(file="./image/option.gif")
             b6_photo=PhotoImage(file="./image/stop.gif")
             b1=Button(self.root,image=b1_photo,command=click_on,overrelief=FLAT,state=DISABLED)
-            b1.grid(row=10,column=4)
+            b1.grid(row=10,column=4,padx=3,pady=3)
             b2=Button(self.root,image=b2_photo,command=select_on,overrelief=FLAT).grid(row=7,column=5)
             #b3=Button(self.root,text="更新码代码打包",command=bale,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=10,column=1)
             b4=Button(self.root,image=b4_photo,command=send_updatamail,state=DISABLED,overrelief=FLAT)
-            b4.grid(row=10,column=1)
+            b4.grid(row=10,column=1,padx=3,pady=3)
             #b5=Button(self.root,text="清空备份目录",command=del_all,bd=3,overrelief=FLAT,fg="blue",width=18,height=2).grid(row=12,column=1)
-            b6=Button(self.root,image=b6_photo,command=(lambda x=self.root:x.destroy()),overrelief=FLAT).grid(row=11,column=4)
+            b6=Button(self.root,image=b6_photo,command=(lambda x=self.root:x.destroy()),overrelief=FLAT).grid(row=11,column=4,padx=3,pady=3)
             check_var=IntVar()
-            cbut1=Checkbutton(self.root,text="开启配置和邮件功能",variable=check_var,command=set_but).grid(row=11,column=2)
+            cbut1=Checkbutton(self.root,text="开启配置和邮件功能",variable=check_var,command=set_but).grid(row=11,column=2,padx=3,pady=3)
             b7=Button(self.root,image=b7_photo,command=change_seting,state=DISABLED,fg="blue")
-            b7.grid(row=11,column=1)
+            b7.grid(row=11,column=1,padx=3,pady=3)
             b8_text_var=StringVar()
             b8=Button(self.root,textvariable=b8_text_var,command=set_mail,bg="yellow",fg="blue")
             b8_text_var.set("设置邮箱信息")
-            b8.grid(row=12,column=2)
+            b8.grid(row=12,column=2,padx=3,pady=3)
         except:
             tkMessageBox.showerror("提示：","找不到需要的图片素材，退出程序！")
             self.root.destroy()
