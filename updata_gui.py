@@ -13,6 +13,7 @@ from tk_msginput import *
 from xltest import xl_red,xl_write
 import os,xlrd,threading,time
 from tkFileDialog  import asksaveasfilename
+from multiprocessing import Pool
 #下载文件
 def getfile(localpath,remotepath):
     with settings(warn_only=True):
@@ -92,7 +93,6 @@ class updata_list:
         self.log.pack()
         self.sbar.config(command=self.log.yview)
     def log_insert(self,txt):
-        txt=txt
         self.log.insert(INSERT,txt)
         self.log.see(INSERT)
     #上传文件
@@ -147,17 +147,12 @@ class updata_list:
             
             for key in self.filedict.keys():
                 self.count+=len(self.filedict[key])
-            keylist=self.filedict.keys()
-            keylist.append(0)
+            #keylist=self.filedict.keys()
             #count=len(self.filelist)
+            
             #遍历更新文件列表
-            for key in keylist:
-                if key==0:
-                    print 1
-                    self.ask.set("上传完成%d/%s 错误数：%d" % (self.num,self.count,self.bad))
-                    #tkMessageBox.showinfo("提示：","上传完成 错误数")
-                    #tkMessageBox.showinfo("提示：","上传完成 错误数：%s" % self.bad)
-                    break
+
+            def fileupdata(key):
                 for file in self.filedict[key]:
                     time.sleep(0.5)
                     if file[1:5]=="cake":
@@ -170,7 +165,7 @@ class updata_list:
                     pathlist=file.split("/")
                     master_dir=self.col["connext_set"][self.col["puttype"]][2]+"/"+pathlist[1]
                     self.ask.set("正在上传第%d个文件,完成度：%d/%s 错误数：%d" % (self.num+1,self.num,self.count,self.bad))
-                    self.log_insert("开始上传%s\n"% file)
+                    self.log_insert("开始上传%s\n" % file)
                     localpath=self.col["localpath"]+file
                     remotepath=self.col["connext_set"][self.col["puttype"]][2]+file
                     #判断本地文件是否存在
@@ -194,15 +189,16 @@ class updata_list:
                             self.num+=1
                             continue
                     filepath=os.path.split(remotepath)[0]
-                    self.log_insert(localpath+"==>>"+remotepath+"\n")
-                    self.log_insert("正在创建目录"+filepath+"\n")
+                    self.log_insert("%s==>>%s\n" % (localpath,remotepath))
+                    txt="正在创建目录%s\n" % filepath
+                    self.log_insert(txt)
                     run("install -d %s" % filepath)
                     #给上传文件授权
                     run("chmod 755 %s" % filepath)
                     #给上传文件重置属主、属组
                     run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],master_dir))
                     time.sleep(1)
-                    self.log_insert("正在上传文件%s\n" % localpath)
+                    self.log_insert("正在上传文件%s\n" % (localpath))
                     putfile(localpath,remotepath)
                     t=check_file(localpath,remotepath)
                     if t==1:
@@ -221,7 +217,12 @@ class updata_list:
                     self.log_insert("上传完成，正在删除系统缓存！\n")
                     run("rm -rf %s/public/runtime/*" % master_dir)
                     time.sleep(1)
-            
+            po=Pool(4)
+            for key in self.filedict.keys():
+                po.apply_async(fileupdata,args=(key,))
+            po.close()
+            po.join()
+        self.ask.set("上传完成%d/%s 错误数：%d" % (self.num,self.count,self.bad))
            
         th=threading.Thread(target=updata_code)
         th.start()

@@ -4,8 +4,33 @@ Created on 2015年12月25日
 
 @author: admin
 '''
-import tkMessageBox
-tkMessageBox.showinfo("提示：","上传完成 错误数")
+from multiprocessing import Pool
+import os, time, random,threading
+
+def long_time_task(name):
+    print('Run task %s (%s)...' % (name, os.getpid()))
+    start = time.time()
+    time.sleep(random.random() * 3)
+    end = time.time()
+    print('Task %s runs %0.2f seconds.' % (name, (end - start)))
+def thtest(num):
+    for i in range(num):
+        print('Parent process %s.' % os.getpid())
+        p = Pool(4)
+        for i in range(5):
+            p.apply_async(long_time_task, args=(i,))
+        print('Waiting for all subprocesses done...')
+        p.close()
+        p.join()
+        print('All subprocesses done.')
+if __name__=='__main__':
+    th=threading.Thread(target=thtest,args=(50,))
+    th.start()
+
+
+
+#import tkMessageBox
+#tkMessageBox.showinfo("提示：","上传完成 错误数")
 """from Tkinter import *
 from PIL import ImageTk
 
@@ -17,7 +42,7 @@ canvas.pack(expand = YES, fill = BOTH)
 image = ImageTk.PhotoImage(file = r"C:\Windows\Web\Wallpaper\Nature\img1.jpg")
 im=canvas.create_image(10, 10, image = image, anchor = NW)
 Button(canvas,text="开关").pack()
-root.mainloop()"""
+root.mainloop()
 
 from Tkinter import *
 from PIL import ImageTk,Image
@@ -38,7 +63,7 @@ for x in ('button1','button2','button3'):
     btn=Button(app,text=x)
     btn.grid(row=a,column=1)
     a+=1
-app.mainloop()
+app.mainloop()"""
 
 
 
