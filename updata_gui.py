@@ -93,8 +93,13 @@ class updata_list:
         self.log.pack()
         self.sbar.config(command=self.log.yview)
     def log_insert(self,txt):
-        self.log.insert(INSERT,txt)
-        self.log.see(INSERT)
+        try:
+            self.log.insert(INSERT,txt)
+            self.log.see(INSERT)
+        except TclError:
+            self.log.insert(INSERT,"进程阻塞，等待3秒！")
+            time.sleep(3)
+            self.log_insert(txt)
     #上传文件
     def updata_File(self):
         #定义标记文件动作
@@ -152,77 +157,78 @@ class updata_list:
             
             #遍历更新文件列表
 
-            def fileupdata(key):
-                for file in self.filedict[key]:
-                    time.sleep(0.5)
-                    if file[1:5]=="cake":
-                        self.col["puttype"]=self.col["cake"]
-                    else:
-                        self.col["puttype"]=self.col["nocake"]
-                    env.host_string=self.col["connext_set"][self.col["puttype"]][0]
-                    env.password=self.col["connext_set"][self.col["puttype"]][1]
-                    file=file.strip()
-                    pathlist=file.split("/")
-                    master_dir=self.col["connext_set"][self.col["puttype"]][2]+"/"+pathlist[1]
-                    self.ask.set("正在上传第%d个文件,完成度：%d/%s 错误数：%d" % (self.num+1,self.num,self.count,self.bad))
-                    self.log_insert("开始上传%s\n" % file)
-                    localpath=self.col["localpath"]+file
-                    remotepath=self.col["connext_set"][self.col["puttype"]][2]+file
-                    #判断本地文件是否存在
-                    if os.path.isfile(localpath)==False:
-                        #判断本地文件是否目录
-                        if os.path.isdir(localpath)==True:
+            for key in self.filedict.keys():
+                try:
+                    for file in self.filedict[key]:
+                        if file[1:5]=="cake":
+                            self.col["puttype"]=self.col["cake"]
+                        else:
+                            self.col["puttype"]=self.col["nocake"]
+                        env.host_string=self.col["connext_set"][self.col["puttype"]][0]
+                        env.password=self.col["connext_set"][self.col["puttype"]][1]
+                        file=file.strip()
+                        pathlist=file.split("/")
+                        master_dir=self.col["connext_set"][self.col["puttype"]][2]+"/"+pathlist[1]
+                        self.ask.set("正在上传第%d个文件,完成度：%d/%s 错误数：%d" % (self.num+1,self.num,self.count,self.bad))
+                        self.log_insert("开始上传%s\n" % file)
+                        localpath=self.col["localpath"]+file
+                        remotepath=self.col["connext_set"][self.col["puttype"]][2]+file
+                        #判断本地文件是否存在
+                        if os.path.isfile(localpath)==False:
+                            #判断本地文件是否目录
+                            if os.path.isdir(localpath)==True:
+                                self.bad+=1
+                                txt=badtxtinfo(file, 1)
+                                self.log_insert(txt)
+                                
+                                continue
+                            else:
+                                txt=badtxtinfo(file, 2)
+                                #文件不存在时同步删除服务器对应文件
+                                self.log_insert(txt)
+                                com="""if [ -f "%s" ]; then
+                                           rm -f %s
+                                       fi""" % (remotepath,remotepath)
+                                run(com)
+                                self.log_insert("同步删除服务器文件%s\n" % localpath)
+                                self.num+=1
+                                continue
+                        filepath=os.path.split(remotepath)[0]
+                        self.log_insert("%s==>>%s\n" % (localpath,remotepath))
+                        txt="正在创建目录%s\n" % (filepath)
+                        self.log_insert(txt)
+                        run("install -d %s" % filepath)
+                        #给上传文件授权
+                        run("chmod 755 %s" % filepath)
+                        #给上传文件重置属主、属组
+                        run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],master_dir))
+                        self.log_insert("正在上传文件%s\n" % (localpath))
+                        putfile(localpath,remotepath)
+                        t=check_file(localpath,remotepath)
+                        if t==1:
+                            print "文件%s上传成功" % file
+                            self.log_insert("%s上传成功！\n" % file)
+                            self.num+=1
+                        else:
                             self.bad+=1
-                            txt=badtxtinfo(file, 1)
+                            txt=badtxtinfo(file, 3)
                             self.log_insert(txt)
                             
-                            continue
-                        else:
-                            txt=badtxtinfo(file, 2)
-                            #文件不存在时同步删除服务器对应文件
-                            self.log_insert(txt)
-                            com="""if [ -f "%s" ]; then
-                                       rm -f %s
-                                   fi""" % (remotepath,remotepath)
-                            run(com)
-                            self.log_insert("同步删除服务器文件%s\n" % localpath)
-                            self.num+=1
-                            continue
-                    filepath=os.path.split(remotepath)[0]
-                    self.log_insert("%s==>>%s\n" % (localpath,remotepath))
-                    txt="正在创建目录%s\n" % filepath
-                    self.log_insert(txt)
-                    run("install -d %s" % filepath)
-                    #给上传文件授权
-                    run("chmod 755 %s" % filepath)
-                    #给上传文件重置属主、属组
-                    run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],master_dir))
-                    time.sleep(1)
-                    self.log_insert("正在上传文件%s\n" % (localpath))
-                    putfile(localpath,remotepath)
-                    t=check_file(localpath,remotepath)
-                    if t==1:
-                        print "文件%s上传成功" % file
-                        self.log_insert("%s上传成功！\n" % file)
-                        self.num+=1
-                    else:
-                        self.bad+=1
-                        txt=badtxtinfo(file, 3)
-                        self.log_insert(txt)
-                        
-                    #给上传文件授权
-                    run("chmod 755 %s" % remotepath)
-                    #给上传文件重置属主、属组
-                    run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],remotepath))
-                    self.log_insert("上传完成，正在删除系统缓存！\n")
-                    run("rm -rf %s/public/runtime/*" % master_dir)
-                    time.sleep(1)
-            po=Pool(4)
-            for key in self.filedict.keys():
-                po.apply_async(fileupdata,args=(key,))
-            po.close()
-            po.join()
-        self.ask.set("上传完成%d/%s 错误数：%d" % (self.num,self.count,self.bad))
+                        #给上传文件授权
+                        run("chmod 755 %s" % remotepath)
+                        #给上传文件重置属主、属组
+                        run("chown -R %s %s" % (self.col["connext_set"][self.col["puttype"]][3],remotepath))
+                        self.log_insert("上传完成，正在删除系统缓存！\n")
+                        run("rm -rf %s/public/runtime/*" % master_dir)
+                        time.sleep(2)
+                except EXCEPTION:
+                    self.bad+=1
+                    self.badtxt+="错误%d:程序 出错！"
+                    time.sleep(3)
+            
+                
+            
+            self.ask.set("上传完成%d/%s 错误数：%d" % (self.num,self.count,self.bad))
            
         th=threading.Thread(target=updata_code)
         th.start()
