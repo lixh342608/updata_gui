@@ -4,7 +4,8 @@ Created on 2015年12月25日
 
 @author: admin
 '''
-
+import tkMessageBox
+tkMessageBox.showinfo("提示：","上传完成 错误数")
 """from Tkinter import *
 from PIL import ImageTk
 

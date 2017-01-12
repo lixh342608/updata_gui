@@ -230,19 +230,7 @@ class tk_Msginput:
             toproot=Toplevel(master)
             toproot.title(title)
             
-            """try:
-                background_image = PhotoImage(file='image/bg.gif')
-                toproot.iconbitmap('image/edi.ico')
-            except:
-                tkMessageBox.showerror("提示：","找不到需要的图片素材，退出程序！")
-            w = background_image.width()
-            h = background_image.height()
-            width_n=toproot.winfo_screenwidth()/2-350
-            height_n=toproot.winfo_screenheight()/2-300
-            toproot.geometry('%dx%d+%d+%d' % (w,h,width_n,height_n))
-            toproot.attributes("-alpha",1)
-            background_label = Label(toproot, image=background_image)
-            background_label.pack(x=0, y=0, relwidth=1, relheight=1)"""
+            
             
             width_n=toproot.winfo_screenwidth()/2-350
             height_n=toproot.winfo_screenheight()/2-300
@@ -348,8 +336,8 @@ class tk_Msginput:
                     
         #定义打包函数
         def remote_set():
-            self.col["backdir"]=back_dir_var.get()
-            writcol(self.col)
+            #self.col["backdir"]=back_dir_var.get()
+            #writcol(self.col)
             env.host_string=motecom_var.get()
             env.password=pwd_var.get()
         def bale():
