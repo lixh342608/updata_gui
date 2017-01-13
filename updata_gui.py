@@ -232,11 +232,6 @@ class updata_list:
            
         th=threading.Thread(target=updata_code)
         th.start()
-        #self.ask.set("上传完成%d/%s" % (self.num,self.count))
-        #self.log.insert(INSERT,"上传完成，正在删除系统缓存！\n")
-        #删除缓存
-        #run("rm -rf %s/public/runtime/*" % master_dir)
-        #tkMessageBox.showinfo("提示：","上传完成 错误数：%s" % self.bad)
         Button(self.root,text="退出程序",command=(lambda x=self.root:x.destroy()),bg="#B0C4DE").pack(padx=10,side=RIGHT)
         Button(self.framl,text="标记日志已更新",command=saved,bg="#B0C4DE").pack(pady=5)
         Button(self.framl,text="另存日志到本地",command=asSavelocal,bg="#B0C4DE").pack(pady=5)

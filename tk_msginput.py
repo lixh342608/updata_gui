@@ -9,11 +9,12 @@ from Tkinter import *
 import tkMessageBox
 from xltest import xl_red
 import pickle,shutil,re
-from updata_gui import *
+#from updata_gui import *
+from updata_new import *
 from fabric.api import *
 import smtplib  
 from email.mime.text import MIMEText
-import sys
+import sys,os,time
 #from PIL import ImageTk,Image
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
@@ -525,7 +526,11 @@ class tk_Msginput:
             self.root.destroy()
         self.root.mainloop()
         return self.pack,self.textdict,self.row_list
+
 if __name__=="__main__":
+    def restart_program():
+        python = sys.executable
+        os.execl(python, python, * sys.argv)
     #定义更新主函数
     def main():
         act=tk_Msginput()
@@ -538,8 +543,6 @@ if __name__=="__main__":
             put=updata_list(col,textdict,row_list)
             pack=put.updata_File()
             if pack==1:
-                main()
-    #try:
+                restart_program()
     main()
-    #except Exception as e:
-        #tkMessageBox.showinfo("错误提示：",e)
+    

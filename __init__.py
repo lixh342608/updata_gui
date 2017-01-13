@@ -4,28 +4,22 @@ Created on 2015年12月25日
 
 @author: admin
 '''
-from multiprocessing import Pool
-import os, time, random,threading
-
-def long_time_task(name):
-    print('Run task %s (%s)...' % (name, os.getpid()))
-    start = time.time()
-    time.sleep(random.random() * 3)
-    end = time.time()
-    print('Task %s runs %0.2f seconds.' % (name, (end - start)))
-def thtest(num):
-    for i in range(num):
-        print('Parent process %s.' % os.getpid())
-        p = Pool(4)
-        for i in range(5):
-            p.apply_async(long_time_task, args=(i,))
-        print('Waiting for all subprocesses done...')
-        p.close()
-        p.join()
-        print('All subprocesses done.')
-if __name__=='__main__':
-    th=threading.Thread(target=thtest,args=(50,))
-    th.start()
+import time
+import sys
+import os
+def restart_program():
+  python = sys.executable
+  os.execl(python, python, * sys.argv)
+if __name__ == "__main__":
+    print 'start...'
+#  answer = raw_input("Do you want to restart this program ? ")
+#  if answer.strip() in "y Y yes Yes YES".split():
+#    restart_program()
+    print u"3秒后,程序将结束..."
+    time.sleep(3)
+    a=raw_input("请输入你的值：")
+    while int(a) != 1:
+        restart_program()
 
 
 
